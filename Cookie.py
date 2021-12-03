@@ -22,7 +22,26 @@ ________________________________________________
 If you have an ingredient, type the number associated with it ('1' for '1. [ingredient]').
 If you're done listing ingredients, type 'Done'.
 ________________________________________________
+
 """)
 
 # Call on 'inventory' to list ingredients.
 inventory(ingredient_selection)
+print('')
+
+# Record known ingredients here.
+known = []
+
+# Take in and store ingredients on hand.
+check = ''
+while check != 'Done':
+	check = input("... ")
+	if check == 'Done':
+		break
+	else:
+		check = int(check)
+		if check not in known:
+			known.append(check)
+			item = ingredient_selection[check - 1]
+			ingredients.append(item)
+print('')
