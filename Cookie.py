@@ -1,7 +1,7 @@
 # Takes in a list and displays a numbered inventory of its elements.
 def inventory(ingredient):
 	if ingredient == []:
-		print('Starve.')
+		print('I got nothing, sorry.')
 	else:
 		for i in range(len(ingredient)):
 			print(f"{i + 1}. {ingredient[i]}")
@@ -64,18 +64,22 @@ def compare(first, second):
 
 # Giant lists of recipe ingredients (same order as recipes list).
 cookbook = [['garlic', 'olive oil', 'pasta'], ['olive oil', 'stock', 'chicken', 'vegetables', 'soy sauce'], \
-['eggs', 'pasta', 'bacon', 'parmesan']]
+['eggs', 'pasta', 'bacon', 'parmesan'], ['onions', 'garlic', 'olive oil', 'stock', 'chicken', 'vegetables']]
 
-# Go through each recipe in cookbook.
+# Go through each ingredient list in cookbook.
 for entry in cookbook:
+	# Reset the shared list for every iteration.
+	shared = []
+	# Retrieve the index of the ingredient list.
 	reference = cookbook.index(entry)
+	# Use the index to find the associated recipe name.
 	recipe = names[reference]
-	# Go through each ingredient in recipe.
+	# Go through each ingredient in the ingredient list.
 	for requirement in entry:
-		# If user has the ingredient, add it to shared list.
+		# If the ingredient is in the user's list of ingredients, add it to shared list.
 		if requirement in ingredients:
 			shared.append(requirement)
-	# Compare recipe with shared list.
+	# Compare recipe's ingredient list with shared list.
 	cookability = compare(entry, shared)
 	if cookability == 'Equal':
 		cookable.append(recipe)
@@ -89,3 +93,10 @@ ________________________________________________
 
 # Call on 'inventory' to list cookable recipes.
 inventory(cookable)
+print('')
+
+# Display user's choice of recipe .txt file.
+choice = int(input("... "))
+print("________________________________________________\n")
+with open(recipes[choice - 1], 'r') as f:
+	print(f.read())
