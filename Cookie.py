@@ -49,6 +49,7 @@ while check != 'Done':
 
 # Store cookable recipes in here.
 cookable = []
+cookable_names = []
 # Use this list to record shared ingredients.
 shared = []
 
@@ -72,8 +73,9 @@ for entry in cookbook:
 	shared = []
 	# Retrieve the index of the ingredient list.
 	reference = cookbook.index(entry)
-	# Use the index to find the associated recipe name.
-	recipe = names[reference]
+	# Use the index to find the associated recipe name and .txt file.
+	recipe_name = names[reference]
+	recipe = recipes[reference]
 	# Go through each ingredient in the ingredient list.
 	for requirement in entry:
 		# If the ingredient is in the user's list of ingredients, add it to shared list.
@@ -82,6 +84,7 @@ for entry in cookbook:
 	# Compare recipe's ingredient list with shared list.
 	cookability = compare(entry, shared)
 	if cookability == 'Equal':
+		cookable_names.append(recipe_name)
 		cookable.append(recipe)
 
 print("""________________________________________________
@@ -92,11 +95,11 @@ ________________________________________________
 """)
 
 # Call on 'inventory' to list cookable recipes.
-inventory(cookable)
+inventory(cookable_names)
 print('')
 
 # Display user's choice of recipe .txt file.
 choice = int(input("... "))
 print("________________________________________________\n")
-with open(recipes[choice - 1], 'r') as f:
+with open(cookable[choice - 1], 'r') as f:
 	print(f.read())
